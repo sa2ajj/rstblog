@@ -8,6 +8,10 @@ setup(
     description='',
     long_description='',
     license='BSD License',
+    package_data={'rstblog': [
+        'templates/*.html',
+        'templates/blog/*.html'
+    ]},
     entry_points = {
         'console_scripts': ['run-rstblog = rstblog.cli:main'],
     },
