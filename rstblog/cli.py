@@ -25,24 +25,31 @@ def get_builder(project_folder):
         config = config.add_from_file(f)
     return Builder(project_folder, config)
 
+def _check_args(N, usage):
+    if len(sys.argv) not in range(1, N+1):
+        print >> sys.stderr, 'usage: %s' % usage
+        sys.exit(1)
 
-def main():
-    """Entrypoint for the console script."""
-    if len(sys.argv) not in (1, 2, 3):
-        print >> sys.stderr, 'usage: rstblog <action> <folder>'
-    if len(sys.argv) >= 2:
-        action = sys.argv[1]
-    else:
-        action = 'build'
-    if len(sys.argv) >= 3:
-        folder = sys.argv[2]
+def build():
+    """build the blog"""
+
+    _check_args(2, 'rstblog-build [<folder>]')
+
+    if len(sys.argv) == 2:
+        folder = sys.argv[1]
     else:
         folder = os.getcwd()
-    if action not in ('build', 'serve'):
-        print >> sys.stderr, 'unknown action', action
-    builder = get_builder(folder)
 
-    if action == 'build':
-        builder.run()
+    get_builder(folder).run()
+
+def serve():
+    """serve the blog locally"""
+
+    _check_args(2, 'rstblog-serve [<folder>]')
+
+    if len(sys.argv) == 2:
+        folder = sys.argv[1]
     else:
-        builder.debug_serve()
+        folder = os.getcwd()
+
+    get_builder(folder).debug_serve()

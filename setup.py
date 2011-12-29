@@ -13,7 +13,10 @@ setup(
         'templates/blog/*.html'
     ]},
     entry_points = {
-        'console_scripts': ['run-rstblog = rstblog.cli:main'],
+        'console_scripts': [
+            'rstblog-build = rstblog.cli:build',
+            'rstblog-serve = rstblog.cli:serve',
+        ],
     },
     install_requires=['PyYAML', 'Babel', 'blinker', 'docutils', 'Jinja2>=2.4', 'Werkzeug']
 )
