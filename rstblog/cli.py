@@ -21,12 +21,16 @@ def get_builder(project_folder):
     config = Config()
     if not os.path.isfile(config_filename):
         raise ValueError('root config file "%s" is required' % config_filename)
-    with open(config_filename) as f:
-        config = config.add_from_file(f)
+    with open(config_filename) as data:
+        config = config.add_from_file(data)
     return Builder(project_folder, config)
 
-def _check_args(N, usage):
-    if len(sys.argv) not in range(1, N+1):
+def _check_args(expected_args, usage):
+    """Check if the number of arguments falls within given interval.
+
+    Print usage otherwise.
+    """
+    if len(sys.argv) not in range(1, expected_args+1):
         print >> sys.stderr, 'usage: %s' % usage
         sys.exit(1)
 
