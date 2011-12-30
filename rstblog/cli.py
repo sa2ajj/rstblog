@@ -25,12 +25,12 @@ def get_builder(project_folder):
         config = config.add_from_file(data)
     return Builder(project_folder, config)
 
-def _check_args(expected_args, usage):
+def _check_args(expected_args, usage, start=1):
     """Check if the number of arguments falls within given interval.
 
     Print usage otherwise.
     """
-    if len(sys.argv) not in range(1, expected_args+1):
+    if len(sys.argv) not in range(start, expected_args+1):
         print >> sys.stderr, 'usage: %s' % usage
         sys.exit(1)
 
