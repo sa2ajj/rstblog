@@ -122,6 +122,10 @@ def write_index_page(builder):
             pagination = pagination.get_next()
 
 
+@contextfunction
+def get_archive(context):
+    return get_archive_summary(context['builder'])
+
 def write_archive_pages(builder):
     archive = get_archive_summary(builder)
     with builder.open_link_file('blog_archive') as f:
@@ -187,5 +191,6 @@ def setup(builder):
     builder.register_url('blog_feed', config_key='modules.blog.feed_url',
                          config_default='/feed.atom')
     builder.jinja_env.globals.update(
-        get_recent_blog_entries=get_recent_blog_entries
+        get_recent_blog_entries=get_recent_blog_entries,
+        get_archive=get_archive
     )
